@@ -1,0 +1,185 @@
+-----Total bankl loan data--------
+select count(id) as toatl_loans from bank_loan
+
+
+---loan isssue date-----
+select count(id) as MTD_Toatl_loans from bank_loan
+where month(issue_date)=12 and year(issue_date)=2021
+
+----(PMTD)------
+select count(id) as MTD_Toatl_loans from bank_loan
+where month(issue_date)=11 and year(issue_date)=2021
+
+--total loan amount--
+select sum(loan_amount) as total_loan_amount from bank_loan
+where month(issue_date) = 12 and year(issue_date)=2021
+
+----total payment received-----
+select sum(total_payment) as total_payment from bank_loan
+
+------avgintrestrate-----
+select round(avg(int_rate)*100,2) as avg_rate from bank_loan
+where month(issue_date)=12 and year(issue_date) =2021
+
+select round(avg(int_rate)*100,2) as avg_rate from bank_loan
+where month(issue_date)=11 and year(issue_date) =2021 
+
+
+-----avg debt to income------
+select round(avg(dti),2) * 100 as mtd_avg_dti from bank_loan
+where month(issue_date) =12 and year(issue_date) =2021
+
+select round(avg(dti),2) * 100 as mtd_avg_dti from bank_loan
+where month(issue_date) =11 and year(issue_date) =2021 
+
+
+select 
+ (count(case when loan_status='Fully paid' or loan_status ='current' then id end)* 100)
+/
+count(id) good_loan_percentage from bank_loan
+
+
+----good applications-----
+select count(id) as good_aapp from bank_loan
+where loan_status='fully paid' or loan_status = 'current'
+
+------total loan amount-------
+select count(loan_amount) as good_loan_amount from bank_loan
+where loan_status='fully paid' or loan_status = 'current'
+
+------bad_loan_percentage------
+select 
+ round(count(case when loan_status='charged off' then id end)* 100,2)
+/
+count(id) bad_loan_percentage from bank_loan
+-----bad loan count & sum amount-------
+
+select count(id) as bad_loan_count from bank_loan
+where loan_status='charged off'
+
+select sum(total_payment) as bad_loan_sum from bank_loan
+where loan_status='charged off'
+
+select loan_status,
+count(id) as total_loan_applications,
+sum(total_payment) as total_amount_recevied,
+sum(loan_amount) as total_fundeed_amount,
+avg(int_rate * 100) as avg_intrest_rate,
+avg(dti* 100) as dti  
+from
+bank_loan
+where month(issue_date)=12
+group by loan_status
+
+
+select loan_status,
+sum(total_payment) as MTD_total_amount_recevied,
+sum(loan_amount) as MTD_total_fundeed_amount
+from
+bank_loan
+where month(issue_date)=12
+group by loan_status
+
+
+select 
+home_ownership,
+count(id) as total_applications,
+sum(loan_amount) as total_funded_amount,
+sum(total_payment)as total_recevied_amount
+from bank_loan
+where grade='A' and address_state='CA'
+group by home_ownership
+order by count(id) desc
+
+
+
+
+
+
+select * from bank_loan
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+select * from bank_loan
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
